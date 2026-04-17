@@ -76,18 +76,24 @@ graph TD
         B[New Input JSONs]
     end
 
-    A --> C[Combine to List]
-    B --> C
-
     subgraph Processing
-        C --> D[Deduplicate]
-        D --> E[Sort by split_key]
-        E --> F[Split by Groups]
+        C[Deduplication]
+        D[Grouped New Data]
+        E[Master Updater & Diff]
+        F[Final Splitter]
     end
 
     subgraph Output
-        D --> J[New Master Data]
-        F --> G[split-01_id_min-max.json]
-        F --> H[split-02_id_min-max.json]
-        F --> I[...]
+        G[Updated Master data]
+        H[Unique Split data]
+        
     end
+    
+    B --> C
+    C --> D
+    A --> E
+    D --> E
+    E --> |更新|G
+    E --> |完全新規リスト|F
+    F --> H
+```
