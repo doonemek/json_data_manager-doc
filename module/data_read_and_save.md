@@ -1,6 +1,6 @@
 # 入出力・ユーティリティ
 
-## 1. JSON ハンドラ (`json_handler.py`)
+## JSON ハンドラ (`json_handler.py`)
 ファイルシステム上の JSON データに対するアクセスをカプセル化します。
 
 - **`load_json` / `save_json`**: 
