@@ -7,17 +7,19 @@
 ## 概要と仕様
 複数のデータから読み込んだ全データから識別キー (`dedup_key`) が重複排除したリストを作成
 - 入力データ
-  - input フォルダ:  新規データ候補リスト
+  - 重複排除処理対象のデータリスト
+  - 重複制御キー
+  - 既知のキー集合
 - 出力データ
-  - output フォルダ: 分割した重複排除した新規データ 
-  - master フォルダ: 重複排除した新規データを追記したマスターデータ
+  - 重複を排除した新規データリスト
 - 整合性
   - 最初に読み込まれたデータを優先保持
+  - 既知のキー集合が存在しない場合、対象のデータリスト内での重複排除を行う
 
 ## アルゴリズム
 Python の `set` 型を利用した高速アルゴリズムを採用
-1. `unique_data` (`list`) と `seen_ids` (`set`) を用意
-2. データを走査し、`seen_ids` にないデータを `unique_data` に追加し、`seen_ids` に登録
+1. `unique_data` (`list`) と `existing_keys` (`set`) を用意
+2. データを走査し、`existing_keys` にないデータを `unique_data` に追加し、`existing_keys` に登録
 3. 存在する場合は無視する
 
 上記により、データ件数が肥大化しても、ある程度無視できる高速化処理の実現している
@@ -83,9 +85,9 @@ graph TD
     subgraph Output
         G[Updated Master data]
         H[Unique Split data]
-        
+
     end
-    
+
     B --> C
     C --> D
     A --> E
