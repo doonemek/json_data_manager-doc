@@ -12,16 +12,24 @@
 | `input_json_file_dir` | string | 新規入力ファイル格納パス |
 | `master_json_file_dir` | string | マスターデータファイル格納パス |
 | `output_json_file_dir` | string | 出力ファイル格納パス |
+| `analysis_keys` | list[string] | ソート操作などで使用するキー (0番目から優先的にソートsされる) |
+| `dedup_key` | string | 重複排除する制御キー名 |
 ---
 
 ### 重複排除設定 (deduplicator セクション)
 
 | キー | 型 | 説明 |
 | :--- | :--- | :--- |
-| `output_master_file_prefix` | string | 出力されるマスターデータファイル接頭辞 |
-| `analysis_keys` | list[string] | ソート操作などで使用するキー (0番目から優先的にソートsされる) |
-| `dedup_key` | string | 重複排除する制御キー名 |
 | `pickup_key` | string | ファイル生成時に分割数の基準となるキー名 |
+---
+
+### マスター操作 (sync_master_data セクション)
+
+| キー | 型 | 説明 |
+| :--- | :--- | :--- |
+| `output_master_file_prefix` | string | 出力されるマスターデータファイル接頭辞 |
+| `group_key` | string | 対象グループ化する際のキー名 |
+| `group_range` | integer | 対象グループ化する際グループ範囲 |
 ---
 
 
@@ -66,13 +74,17 @@
     "data_root": "./data",
     "input_json_file_dir": "${common.data_root}/input",
     "master_json_file_dir": "${common.data_root}/master",
-    "output_json_file_dir": "${common.data_root}/output"
-  },
-  "deduplicator": {
-    "output_master_file_prefix": "master",
+    "output_json_file_dir": "${common.data_root}/output",
     "analysis_keys": ["id"],
     "dedup_key": "id",
+  },
+  "deduplicator": {
     "pickup_key": "id"
+  },
+  "sync_master_data": {
+    "output_master_file_prefix": "master-{group_key}_{min_val}-{max_val}",
+    "group_key": "id",
+    "group_range": 1000000
   },
   "splitter": {
     "split_num": 10000,

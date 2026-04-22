@@ -5,6 +5,7 @@
 ## 1. [データ処理 (Data Processing)](data_processing.md)
 データの論理的な加工を担当します。
 - 重複排除 (`deduplicator.py`)
+- master データ比較・保存 (`sync_master_data.py`)
 - データ分割・グループ化 (`splitter.py`)
 
 ## 2. [入出力・ユーティリティ (Data Read and Save)](data_read_and_save.md)
