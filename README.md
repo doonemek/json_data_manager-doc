@@ -5,6 +5,7 @@
 - [Overview](overview.md)
 - [Data Specifications](data_spec.md)
 - [Modules](module/index.md)
+    - [Data Utils](module/data_utils.md)
     - [Read & Save](module/data_read_and_save.md)
     - [Data Processing](module/data_processing.md)
 - [Configuration](configuration.md)
